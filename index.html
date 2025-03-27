@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background: url('heart-background.jpg') no-repeat center center/cover;  */
+            background-color: #eb92ba;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            position: relative;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 100px;
+            justify-content: center;
+            position: relative;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            position: relative;
+        }
+        .yes {
+            background-color: green;
+            color: white;
+        }
+        .no {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Valentine em đồng ý đi chơi với anh nha ❤️❤️!</h1>
+        <div class="buttons">
+            <button class="btn yes" onclick="goToThankPage()">Đồng ý</button>
+            <button class="btn no" id="no-btn" onmouseover="moveButton()">Không</button>
+        </div>
+    </div>
+    
+    <script>
+
+        function moveButton() {
+            let btn = document.getElementById("no-btn");
+            // let maxX = window.innerWidth - btn.offsetWidth - 20;
+            // let maxY = window.innerHeight - btn.offsetHeight - 20;
+            // console.log(maxX, maxY);
+            // Math.floor(Math.random() * 100) + 1;
+            let x =  Math.floor(Math.random() * window.innerWidth/4) + 1;
+            let y = Math.floor(Math.random() *  window.innerHeight/4) + 1;
+            console.log(x, y);
+            btn.style.left = `${Math.max(0, x)}px`;
+            btn.style.top = `${Math.max(0, y)}px`;
+        }
+
+        function goToThankPage() {
+            document.body.innerHTML = `
+                <div class='container'>
+                    <img src='cat.png' alt='Heart' style='width:100px;'>
+                    <h1>Anh Biết Là Em Cũng Thích Anh mà!</h1>
+                </div>
+            `;
+            // document.body.style.background = "url('heart-background.jpg') no-repeat center center/cover";
+            createHeartAnimation();
+        }
+        
+        function createHeartAnimation() {
+            for (let i = 0; i < 50; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.style.position = "absolute";
+                heart.style.left = Math.random() * window.innerWidth + "px";
+                heart.style.top = Math.random() * window.innerHeight + "px";
+                heart.style.fontSize = Math.random() * 40 + 20 + "px";
+                heart.style.opacity = "0.8";
+                document.body.appendChild(heart);
+                animateHeart(heart);
+            }
+        }
+        
+        function animateHeart(heart) {
+            let y = parseFloat(heart.style.top);
+            let interval = setInterval(() => {
+                if (y < 0) {
+                    clearInterval(interval);
+                    heart.remove();
+                }
+                heart.style.top = y + "px";
+                y -= 2;
+            }, 50);
+        }
+    </script>
+    </script>
+</body>
+</html>
